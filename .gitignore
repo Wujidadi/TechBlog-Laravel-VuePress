@@ -144,3 +144,12 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#================================================#
+
+## For this project
+
+# VuePress
+.temp
+.cache
+public/vuepress/
