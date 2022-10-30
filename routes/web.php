@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\VuePressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('{any?}', [VuePressController::class, 'index'])
+    ->where('any', '^(?!api).*$')
+    ->where('any', '^(?!assets\/).*$');
+
+Route::get('assets/{asset}', [VuePressController::class, 'getAsset'])
+    ->where('asset', '.*');;
