@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+    main:
+        image: wujidadi/ap:${DOCKER_IMAGE_VERSION_AP}
+        container_name: ${CONTAINER_NAME_PREFIX}-Main
+        hostname: ${CONTAINER_HOST_PREFIX}-main
+        volumes:
+            - ./docker/apache-default.conf:/etc/apache2/sites-enabled/000-default.conf
+            - .:${CONTAINER_WORKDIR_MAIN}
+        networks:
+            extnet:
+                ipv4_address: ${CONTAINER_IPV4_SERVER}
+        ports:
+            - ${CONTAINER_PORT_MAIN}:80
+        working_dir: ${CONTAINER_WORKDIR_MAIN}
+        command: >
+            bash -c "service rsyslog start;
+            cron start;
+            /usr/sbin/apache2ctl -D FOREGROUND"
+        restart: unless-stopped
+
+networks:
+    extnet:
+        name: ${CONTAINER_NETWORK_NAME}
+        driver: bridge
+        ipam:
+            config:
+                - subnet: ${CONTAINER_NETWORK_SUBNET}
