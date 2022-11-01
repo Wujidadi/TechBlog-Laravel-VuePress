@@ -1,3 +1,5 @@
+import { removeHtmlExtensionPlugin } from 'vuepress-plugin-remove-html-extension';
+
 module.exports = {
     lang: "zh-TW",
     title: "Taras's TechBlog",
@@ -7,4 +9,7 @@ module.exports = {
     },
     base: "/",
     dest: "../public/vuepress",
+    plugins: [
+        removeHtmlExtensionPlugin(),
+    ],
 };
